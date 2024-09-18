@@ -1,13 +1,16 @@
 import { beforeEach, describe, expect, test } from "bun:test";
 import ContaBancaria from "./ContaBancaria.ts";
 
-// Antes de cad ateste vamos criar as contas  utilizando o beforEach
+// Antes de cada teste vamos criar as contas  utilizando o beforEach
 
 describe ("TESTE DA CLASSE CONTA BANCÁRIA " ,() => {
-    let conta : ContaBancaria
+    let conta : ContaBancaria 
+    let contaDois:ContaBancaria 
     beforeEach(() => { 
      conta= new ContaBancaria ()
+     contaDois = new ContaBancaria ()
     }) // UTILIZA ISSO PARA CRIAR UMA CONTA , PARA NÃO TER QUE FICAR REPETINDO DURANTE O PROGRAMA
+    
 test("Método Depositar", () =>{
     expect(conta.depositar(300)).toBe(300)
 })
@@ -15,7 +18,7 @@ test ("Método Depositar - depósito inválido",()=> {
     expect (()  => conta.depositar (-100)).toThrow("Valor inválido!"); // toThrow vai pegar o erro qeu ja foi lançado
 })
 
- // coloca o parentese com espaço so qaundo coloca toThrow
+ // coloca o parentese com espaço so quando coloca toThrow
 test ("Método Sacar- depositar", () => {
     //expect(() => conta.sacar
     conta.depositar(50)
@@ -28,7 +31,15 @@ test ("Método Sacar ", () => {
     expect(() => conta.sacar (-1)).toThrow("Valor inválido");
 
 })
-
+test ("Método tranferir", () => {
+    conta.depositar(400)
+    expect(conta.transferir(150,contaDois)).toBe(250)
+ })
+ 
+ test("Método  transferir -  Inválido",()=> {
+   expect (()=> conta.transferir(300,contaDois)).toThrow("Valor inválido")
+ })
+ 
 }) 
 
 
