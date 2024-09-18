@@ -36,10 +36,31 @@ test ("Método tranferir", () => {
     expect(conta.transferir(150,contaDois)).toBe(250)
  })
  
- test("Método  transferir -  Inválido",()=> {
+ test("Método  transferir - Valor Inválido",()=> {
    expect (()=> conta.transferir(300,contaDois)).toThrow("Valor inválido")
  })
  
+test ("Método Consultar Saldo",() =>{
+    conta.depositar(1000)
+    expect(conta.consultarSaldo()).toBe(1000)
+}
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }) 
 
 
