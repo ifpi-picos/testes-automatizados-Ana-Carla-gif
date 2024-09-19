@@ -72,34 +72,6 @@ private registrarOperacao(descricao: string){
   data = `${data.getDate()}/${(data.getMonth()+1)}/${data.getFullYear()}`
   descricao = `${descricao}-${data}`
   this.extrato.push(descricao)
-  
+
 }
 }
-
-// public transferir (valor : number){
-//   let contaDestino = 0
-//   if(valor <= this.saldo){
-//     this.saldo -= valor
-//    contaDestino.push(`${valor}`)
-
-//   }
-
-//   public depositar(valor: number) {
-//     if (valor > 0) {
-//       this.saldo += valor;
-//     }
-//   }
-
-//   public sacar (valor:number){
-//     if( valor >  this.saldo ){
-//       return "Saldo insuficiente !"
-//     }
-//     else if (this.saldo - valor) {
-//       return "Saque efetuado com sucesso"
-//     }
-//   }
-
-//   public consultarSaldo() {
-//     return this.saldo;
-//   }
-// }
