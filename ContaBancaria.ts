@@ -10,7 +10,8 @@ export default class ContaBancaria {
 
   public constructor() {
     // UTILIZA-SE ISSO PARA NÃO MOSTRAR OS TRACINHOS VERMELHOS (ERRADO)
-    this.numeroConta = 0;
+    this.numeroConta = Math.floor(Math.random()
+    *900000000) + 100000000
     this.agencia = 0;
     this.saldo = 0;
     this.extrato = [];
@@ -19,8 +20,9 @@ export default class ContaBancaria {
     // publico para aparecer para o usuário
     if (valor > 0) {
       this.saldo += valor;
-      this.extrato.push(`Depósito de R$ ${valor.toFixed(2)}`); // Pega o extrato e utiliza o push para a acrescentar o valor novo  ao extrato.
+      let descricao = `Depósito de R$ ${valor.toFixed(2)}`; // Pega o extrato e utiliza o push para a acrescentar o valor novo  ao extrato.
       // Utiliza-se toFixed para imprimir os dois númertos após a virgúla.
+      this.registrarOperacao(descricao)
       return this.saldo;
     } else {
       throw new Error(`Valor inválido!`); // Criando um erro para lançar esse erro no else , colocamos por conta do teste
@@ -30,7 +32,8 @@ export default class ContaBancaria {
   public sacar(valor: number) {
     if (valor > 0 && valor <= this.saldo) {
       this.saldo -= valor;
-      this.extrato.push(`Saque de R$ ${valor.toFixed(2)}`);
+      let descricao = `Saque de R$ ${valor.toFixed(2)}`;
+      this.registrarOperacao(descricao)//Chamar 
       return this.saldo;
     } else {
       throw new Error(`Valor inválido!`);
@@ -38,17 +41,19 @@ export default class ContaBancaria {
   }
   private receberTranferencia(valor: number, conta: ContaBancaria) {
     // EStá privado pq o usuário ñ vai acessar diretamente.
-    conta.extrato.push(`Tranferência de ${valor} recebeida`);
+   let descricao = `Transferência de ${valor} recebida`;
+   conta.registrarOperacao(descricao)
   }
   public transferir(valor: number, conta: ContaBancaria) {
     if (valor > 0 && valor <= this.saldo) {
       conta.receberTranferencia(valor, conta);
       this.saldo -= valor;
-      this.extrato.push(`Tranferencia de R$ ${valor} realizada.`);
+      let descricao =`Tranferencia de R$ ${valor} realizada.`;
+      this.registrarOperacao(descricao)
       return this.saldo;
     } else {
       throw new Error("Valor inválido");
-    }  
+    } 
   }
 public consultarSaldo(){
   return this.saldo
@@ -56,13 +61,18 @@ public consultarSaldo(){
 
 public exibirExtrato(){
   let extrato = " "
-
   this.extrato.forEach((operacao,index) => {
     extrato += `${index + 1}. ${operacao}\n`
   })
 
   return extrato.trim()
-
+}
+private registrarOperacao(descricao: string){
+  let data: Date | string= new Date ()
+  data = `${data.getDate()}/${(data.getMonth()+1)}/${data.getFullYear()}`
+  descricao = `${descricao}-${data}`
+  this.extrato.push(descricao)
+  
 }
 }
 
