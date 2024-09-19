@@ -30,6 +30,7 @@ export default class ContaBancaria {
   public sacar(valor: number) {
     if (valor > 0 && valor <= this.saldo) {
       this.saldo -= valor;
+      this.extrato.push(`Saque de R$ ${valor.toFixed(2)}`);
       return this.saldo;
     } else {
       throw new Error(`Valor inválido!`);
@@ -53,10 +54,16 @@ public consultarSaldo(){
   return this.saldo
 }
 
+public exibirExtrato(){
+  let extrato = " "
 
+  this.extrato.forEach((operacao,index) => {
+    extrato += `${index + 1}. ${operacao}\n`
+  })
 
+  return extrato.trim()
 
-
+}
 }
 
 // public transferir (valor : number){

@@ -40,27 +40,17 @@ test ("Método tranferir", () => {
    expect (()=> conta.transferir(300,contaDois)).toThrow("Valor inválido")
  })
  
-test ("Método Consultar Saldo",() =>{
+test ("Método Consultar Saldo",() =>{ 
     conta.depositar(1000)
     expect(conta.consultarSaldo()).toBe(1000)
-}
+})
 
-)
+test("Método Exibir Extrato",()=>{
+    conta.depositar(5000)
+    conta.sacar(2500)
+    expect(conta.exibirExtrato()).toBe("1. Depósito de R$ 5000.00\n2. Saque de R$ 2500.00")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+})
 }) 
 
 
